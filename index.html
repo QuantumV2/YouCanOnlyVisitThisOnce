@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>You Can Only Visit This Site Once</title>
+</head>
+<body>
+    <h1> You Can Only Visit This Site Once</h1>
+    <h2>Seriously, try refreshing this page.</h2>
+    <script>
+        if (document.cookie.indexOf("ranout") >= 0) {
+            doTheSilly();
+        }
+
+        function doTheSilly(){
+            fetch("/notfound.html")
+            .then(response => response.text())
+            .then(data => {
+            document.removeChild(document.documentElement);
+            document.open();
+            document.write(data);
+            document.close();
+            });
+        }
+        document.cookie = "ranout=1;max-age=31556952;"; 
+    </script>
+    <style>
+        body {
+            background-color: black;
+            color: white;
+        }
+    </style>
+</body>
+</html>
